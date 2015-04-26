@@ -41,11 +41,11 @@ SimpleNode rootNode;
 
 updateStatus() async {
   for (var k in clients.keys) {
-    var status = await clients[k].getReceiverChannel().sendRequest({
+    CastJSONMessage status = await clients[k].getReceiverChannel().sendRequest({
       "type": "GET_STATUS"
     });
 
-    (rootNode.getChild(k).getChild("Status") as SimpleNode).updateValue(status);
+    (rootNode.getChild(k).getChild("Status") as SimpleNode).updateValue(status.json);
   }
 
   (rootNode.getChild("Last_Device_Scan") as SimpleNode).updateValue(new DateTime.now().millisecondsSinceEpoch);
@@ -63,7 +63,8 @@ updateDevices() async {
     print("Discovered Device: ${device.uuid}");
 
     var host = Uri.parse(device.location).host;
-    clients[device.uuid] = new CastClient(host);
+    CastClient client = clients[device.uuid] = new CastClient(host);
+    await client.connect();
     link.provider.addNode("/${device.uuid}", {
       "Launch": {
         r"$is": "launch",
