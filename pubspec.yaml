@@ -3,7 +3,7 @@ description: Chromecast DSLink
 dependencies:
   dslink:
     git: https://github.com/IOT-DSA/sdk-dslink-dart.git
-  chromecast:
+  google_cast:
     git: https://github.com/DirectMyFile/chromecast.dart.git
   upnp:
     git: https://github.com/DirectMyFile/upnp.dart.git

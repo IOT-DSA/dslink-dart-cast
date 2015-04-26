@@ -2,7 +2,7 @@ import "dart:async";
 
 import "package:dslink/client.dart";
 import "package:dslink/responder.dart";
-import "package:chromecast/chromecast.dart";
+import "package:google_cast/cast.dart";
 import "package:upnp/upnp.dart";
 
 LinkProvider link;
@@ -40,8 +40,8 @@ List<DiscoveredDevice> devices;
 SimpleNode rootNode;
 
 updateStatus() async {
-  for (var k in chromecasts.keys) {
-    var status = await chromecasts[k].getReceiverChannel().sendRequest({
+  for (var k in clients.keys) {
+    var status = await clients[k].getReceiverChannel().sendRequest({
       "type": "GET_STATUS"
     });
 
@@ -63,7 +63,7 @@ updateDevices() async {
     print("Discovered Device: ${device.uuid}");
 
     var host = Uri.parse(device.location).host;
-    chromecasts[device.uuid] = new Chromecast(host);
+    clients[device.uuid] = new CastClient(host);
     link.provider.addNode("/${device.uuid}", {
       "Launch": {
         r"$is": "launch",
@@ -71,7 +71,7 @@ updateDevices() async {
         r"$params": [
           {
             "name": "app",
-            "type": "string"
+            "type": "strin  g"
           }
         ]
       },
@@ -90,7 +90,7 @@ class LaunchNode extends SimpleNode {
   Object onInvoke(Map<String, dynamic> params) {
     var uuid = path.split("/")[1];
     if (params["app"] == null) return {};
-    CastChannel channel = chromecasts[uuid].getReceiverChannel();
+    CastChannel channel = clients[uuid].getReceiverChannel();
     channel.sendRequest({
       "type": "LAUNCH",
       "appId": params["app"]
@@ -99,4 +99,4 @@ class LaunchNode extends SimpleNode {
   }
 }
 
-Map<String, Chromecast> chromecasts = {};
+Map<String, CastClient> clients = {};
