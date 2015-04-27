@@ -9,7 +9,7 @@ LinkProvider link;
 DeviceDiscoverer discoverer = new DeviceDiscoverer();
 
 main(List<String> args) async {
-  link = new LinkProvider(args, "Chromecast-", command: "run", defaultNodes: {
+  link = new LinkProvider(args, "Cast-", command: "run", defaultNodes: {
     "Last_Device_Scan": {
       r"$name": "Last Device Scan",
       r"$type": "int",
