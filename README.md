@@ -2,6 +2,12 @@
 
 A DSLink for Google Cast.
 
+## Features
+
+- Launch Applications
+- Get Current Volume
+- Get Open Application
+
 ## Usage
 
 ```bash
