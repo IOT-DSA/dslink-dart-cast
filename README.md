@@ -1,6 +1,6 @@
-# Chromecast DSLink
+# Google Cast DSLink
 
-A DSLink for Chromecast.
+A DSLink for Google Cast.
 
 ## Usage
 
@@ -8,3 +8,5 @@ A DSLink for Chromecast.
 pub get
 dart bin/run.dart
 ```
+
+Devices will be automatically discovered on the network.
