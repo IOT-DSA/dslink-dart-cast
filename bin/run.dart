@@ -72,7 +72,7 @@ updateDevices() async {
         r"$params": [
           {
             "name": "app",
-            "type": "strin  g"
+            "type": "string"
           }
         ]
       },
